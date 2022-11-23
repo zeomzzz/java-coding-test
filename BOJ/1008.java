@@ -7,8 +7,8 @@ public class Main {
 
         double a, b, result;
 
-        a = scanner.nextInt();
-        b = scanner.nextInt();
+        a = scanner.nextDouble();
+        b = scanner.nextDouble();
         result = a / b;
 
         System.out.println(result);
