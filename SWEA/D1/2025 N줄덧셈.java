@@ -9,11 +9,11 @@ class Solution
 		int N;
 		N = sc.nextInt();
         
-        int result = 0;
+        	int result = 0;
         
-        for(int i = 1; i < N+1; i++)
-            result += i;
-        
-        System.out.println(result);
+		for(int i = 1; i < N+1; i++)
+		    result += i;
+
+		System.out.println(result);
 	}
 }
