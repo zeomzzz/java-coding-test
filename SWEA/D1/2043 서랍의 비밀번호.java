@@ -8,8 +8,8 @@ class Solution
 		Scanner sc = new Scanner(System.in);
 		int a, b;
 		a = sc.nextInt();
-    b = sc.nextInt();
-        
-    System.out.println(a - b + 1);
+		b = sc.nextInt();
+
+		System.out.println(a - b + 1);
 	}
 }
