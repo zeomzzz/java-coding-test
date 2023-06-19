@@ -32,3 +32,34 @@ public class Solution {
  
     }
 }
+
+
+// 비트마스킹 풀이
+import java.util.Scanner;
+
+public class Solution {
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		int TC = sc.nextInt(); // TC 수
+		
+		for(int tc=1; tc<=TC; tc++) {
+			
+			int N = sc.nextInt(); // 마지막 N비트
+			int M = sc.nextInt(); // M의 이진수 표현
+			
+			// 마지막 M개 가져오기
+			int chk = (1 << N) - 1;
+			if((chk & M) == chk) {
+				System.out.printf("#%d ON\n", tc);
+			} else {
+				System.out.printf("#%d OFF\n", tc);
+			}
+			
+		} // tc
+		
+	}
+
+}
