@@ -14,8 +14,7 @@ class Solution {
             String key = Integer.toString(size);
             if(sizes.containsKey(key)) {
                 int value = sizes.get(key);
-                sizes.remove(key);
-                sizes.put(key, ++value);
+                sizes.put(key, ++value); // value를 갱신
                 if (value == k) {
                     return 1;
                 }
