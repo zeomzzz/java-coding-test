@@ -23,3 +23,26 @@ class Solution {
         return uniqueSums.size();
     }
 }
+
+// 다른 풀이
+
+import java.util.*;
+
+class Solution {
+    public int solution(int[] elements) {
+        int answer = 0;
+        
+        int l = elements.length;
+        Set<Integer> sums = new HashSet<>();
+        
+         for (int i=0; i<l; i++) {
+             int sum = 0;
+             for (int j=0; j<l; j++) {
+                 sum += elements[(i+j)%l];
+                 sums.add(sum);
+             }
+         }
+        
+        return sums.size();
+    }
+}
