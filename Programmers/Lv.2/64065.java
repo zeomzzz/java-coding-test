@@ -47,3 +47,33 @@ class Solution {
         return answer;
     }
 }
+
+// replaceAll, trim을 이용한 풀이
+import java.util.*;
+
+class Solution {
+    public int[] solution(String s) {
+        
+        // 1. "{", "}"를 제거
+        String[] tuples = s.replaceAll("\\{", " ").replaceAll("\\}", " ").trim().split(" , ");
+        
+        // 2. 길이에 따라 정렬
+        Arrays.sort(tuples, (o1, o2) -> o1.length() - o2.length());
+        
+        // 3. answer 만들기
+        int[] answer = new int[tuples.length];
+        int idx = 0;
+        Set<String> answerSet = new HashSet<>();
+        for (String tuple : tuples) {
+            for (String element : tuple.split(",")) {
+                if (answerSet.add(element)) {
+                    answer[idx++] = Integer.parseInt(element);
+                    break;
+                }
+            }
+        }
+        
+        return answer;
+    }
+}
+
