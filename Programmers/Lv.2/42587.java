@@ -48,3 +48,47 @@ class Solution {
         return answer;
     }
 }
+
+// 다른 풀이
+// 1. priorities를 q를 담기
+// 2. array sort하여 priorities를 정렬
+// 3. locations를 조정하여 값을 찾기
+
+import java.util.*;
+
+class Solution {
+    public int solution(int[] priorities, int location) {
+        int answer = 0;
+        
+        Queue<Integer> q = new LinkedList<>();
+        for (int priority : priorities) {
+            q.add(priority);
+        }
+        
+        Arrays.sort(priorities);
+        int l = location;
+        int n = priorities.length - 1;
+        
+        while (!q.isEmpty()) {
+            int priority = priorities[n - answer];
+            int polled = q.poll();
+            
+            // 실행하는 경우
+            if (polled == priority) {
+                answer++;
+                l--;
+                if (l < 0) { // location이 실행되면 음수가 됨
+                    break;
+                }
+            } else {
+                q.offer(polled);
+                l--;
+                if (l < 0) {
+                    l = q.size() - 1; // 음수면 다시 맨 뒤로 보냄
+                }
+            }
+        }
+        
+        return answer;
+    }
+}
