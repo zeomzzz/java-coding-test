@@ -18,11 +18,11 @@ class Solution {
             return;
         }
         
-        if (str.length() > 5) {
+        depth++;
+        
+        if (str.length() == 5) {
             return;
         }
-        
-        depth++;
         
         dfs(str+"A", word);
         dfs(str+"E", word);
