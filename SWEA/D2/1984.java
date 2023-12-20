@@ -111,3 +111,41 @@ class Solution {
         
     }
 }
+
+// 풀이 4 : BufferedReader + 대소 비교 (231220)
+
+import java.util.*;
+import java.io.*;
+
+// 1. 배열 만들면서 전체 합, 최댓값, 최솟값 구하기
+// 2. 합에서 최대, 최소 빼고 /8
+
+class Solution {
+	public static void main(String args[]) throws Exception {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int T = Integer.parseInt(st.nextToken());
+
+        for (int tc=1; tc<=T; tc++) {
+            st = new StringTokenizer(br.readLine());
+            int max = Integer.MIN_VALUE;
+            int min = Integer.MAX_VALUE;
+            int sum = 0;
+
+            for (int i=0; i<10; i++) {
+                int tmp = Integer.parseInt(st.nextToken());
+                max = Math.max(max, tmp);
+                min = Math.min(min, tmp);
+                sum += tmp;
+            }
+
+            sum -= (max + min);
+            int answer = (int) Math.round((sum / (double) 8));
+
+            System.out.printf("#%d %d\n", tc, answer);
+        }
+        
+    }
+}
