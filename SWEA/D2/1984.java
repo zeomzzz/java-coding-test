@@ -56,3 +56,58 @@ public class Solution {
 		
 	}
 }
+
+// 풀이 2 : BufferedReader + 버블정렬 (231220)
+import java.util.*;
+import java.io.*;
+
+// 1. 배열 만들면서 전체 합 구함
+// 2. 버블정렬 1회 : 최댓값 구하기
+// 3. 버블정렬 역순 1회 : 최소값 구하기
+// 4. 합에서 최대, 최소 빼고 /8
+
+class Solution {
+	public static void main(String args[]) throws Exception {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int T = Integer.parseInt(st.nextToken());
+        int[] arr = new int[10];
+        for (int tc=1; tc<=T; tc++) {
+            st = new StringTokenizer(br.readLine());
+            int sum = 0; // 전체 합
+            for (int i=0; i<10; i++) {
+                arr[i] = Integer.parseInt(st.nextToken());
+                sum += arr[i];
+            }
+
+            // 버블정렬 1회 : 최댓값
+            for (int i=0; i<9; i++) {
+                if (arr[i] > arr[i+1]) {
+                    int tmp = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = tmp;
+                }
+            }
+            int max = arr[9];
+
+            // 버블정렬 1회 : 최솟값
+            for (int i=0; i<9; i++) {
+                if (arr[i] < arr[i+1]) {
+                    int tmp = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = tmp;
+                }
+            }
+            int min = arr[9];
+
+            // 평균 구하기
+            sum -= (max + min);
+            int answer = (int) Math.round(sum/(double)8);
+
+            System.out.printf("#%d %d\n", tc, answer);
+        }
+        
+    }
+}
