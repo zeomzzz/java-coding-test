@@ -93,3 +93,29 @@ class Solution {
         
     }
 }
+
+// 풀이 4 : BufferedReader + 대소비교
+import java.util.*;
+import java.io.*;
+
+class Solution {
+	public static void main(String args[]) throws Exception {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int t = Integer.parseInt(st.nextToken());
+
+        for (int tc=1; tc<=t; tc++) {
+            int answer = -1;
+            st = new StringTokenizer(br.readLine());
+            
+            for (int i=0; i<10; i++) {
+                int tmp = Integer.parseInt(st.nextToken());
+                if (answer < tmp) answer = tmp;
+            }
+
+            System.out.printf("#%d %d\n", tc, answer);
+        }
+        
+    }
+}
