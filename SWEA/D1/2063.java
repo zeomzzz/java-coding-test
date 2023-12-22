@@ -101,3 +101,29 @@ public class Solution {
     	
     }
 }
+
+풀이 4 : BufferedReader + ArraysSort (231222)
+import java.util.*;
+import java.io.*;
+
+public class Solution {
+
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+    	int N = Integer.parseInt(st.nextToken());
+    	int[] nums = new int[N];
+    	st = new StringTokenizer(br.readLine());
+    	for (int i=0; i<N; i++) {
+    		nums[i] = Integer.parseInt(st.nextToken());
+    	}
+    	
+    	Arrays.sort(nums);
+    	
+    	System.out.println(nums[(N+1)/2 - 1]);
+    	
+    }
+
+}
