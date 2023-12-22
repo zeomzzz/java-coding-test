@@ -22,7 +22,6 @@ class Solution
 
 
 // 풀이 2 : 선택 정렬 활용
-
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -58,4 +57,47 @@ public class Solution {
 
 	} // main
 
+}
+
+// 풀이 3 : BufferedReader + 선택정렬 (231222)
+import java.util.*;
+import java.io.*;
+
+// 선택정렬로 (N+1)/2 번째로 작은 수 찾기
+public class Solution {
+
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+    	int N = Integer.parseInt(st.nextToken());
+    	int[] nums = new int[N];
+    	st = new StringTokenizer(br.readLine());
+    	for (int i=0; i<N; i++) {
+    		nums[i] = Integer.parseInt(st.nextToken());
+    	}
+    	
+    	// (N+1)/2 번째 작은 수를 찾아야 함
+    	int cnt = (N+1)/2;
+    	for (int i=0; i<cnt; i++) {
+    		int min = nums[i];
+    		int minIdx = i;
+    		
+    		for (int j=i+1; j<N; j++) {
+    			if (nums[j] < min) {
+    				min = nums[j];
+    				minIdx = j;
+    			}
+    		}
+    		
+    		// swap : nums[i], nums[minIdx]
+    		int tmp = nums[i];
+    		nums[i] = nums[minIdx];
+    		nums[minIdx] = tmp;
+    	}
+    	
+    	System.out.println(nums[cnt-1]);
+    	
+    }
 }
