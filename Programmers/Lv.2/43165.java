@@ -53,3 +53,38 @@ class Solution {
     }
 }
 
+// bfs 풀이
+import java.util.*;
+
+class Solution {
+    public int solution(int[] numbers, int target) {
+        int answer = 0;
+        
+        Queue<Integer> q = new LinkedList<>();
+        int idx = 0;
+        q.offer(0);
+        
+        while (!q.isEmpty()) {
+            if (idx == numbers.length) {
+                break;
+            }
+            
+            int l = q.size();
+            for (int i=0; i<l; i++) {
+                int cur = q.poll();
+                q.offer(cur + numbers[idx]);
+                q.offer(cur - numbers[idx]);
+            }
+            idx++;
+            
+        }
+        
+        while (!q.isEmpty()) {
+            if (q.poll() == target) {
+                answer++;
+            }
+        }
+        
+        return answer;
+    }
+}
