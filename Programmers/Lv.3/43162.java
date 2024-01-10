@@ -61,3 +61,32 @@ class Solution {
         return answer;
     }
 }
+
+// 240110
+class Solution {
+    static boolean[] visited;
+    public int solution(int n, int[][] computers) {
+        int answer = 0;
+        visited = new boolean[n];
+        
+        for (int i=0; i<n; i++) {
+            if (visited[i] == false) {
+                visited[i] = true;
+                answer++;
+                dfs(i, n, computers);
+            }
+        }
+        
+        return answer;
+    }
+    
+    static void dfs(int cur, int n, int[][] computers) {
+        
+        for (int nxt=0; nxt<n; nxt++) {
+            if (visited[nxt] == false && computers[cur][nxt] == 1) {
+                visited[nxt] = true;
+                dfs(nxt, n, computers);
+            }
+        }
+    }
+}
