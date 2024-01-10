@@ -80,3 +80,27 @@ class Solution {
         return answer;
     }
 }
+
+// 240110
+import java.util.*;
+
+class Solution {
+    public boolean solution(String[] phone_book) {
+        boolean answer = true;
+        
+        Arrays.sort(phone_book);
+        int l = phone_book.length;
+        
+        for (int i=0; i<l-1; i++) {
+            if (phone_book[i].length() < phone_book[i+1].length()) {
+                int m = phone_book[i].length();
+                if (phone_book[i+1].substring(0, m).equals(phone_book[i])) {
+                    answer = false;
+                    break;
+                }
+            }
+        }
+        
+        return answer;
+    }
+}
