@@ -90,3 +90,35 @@ class Solution {
         }
     }
 }
+
+// bfs
+import java.util.*;
+
+class Solution {
+    public int solution(int n, int[][] computers) {
+        int answer = 0;
+        boolean[] visited = new boolean[n];
+        
+        Queue<Integer> q = new LinkedList<>();
+        for (int start=0; start<n; start++) {
+            if (visited[start] == false) {
+                answer++;
+                q.offer(start);
+                visited[start] = true;
+                
+                while (!q.isEmpty()) {
+                    int cur = q.poll();
+                    for (int nxt=0; nxt<n; nxt++) {
+                        if (visited[nxt] == false && computers[cur][nxt] == 1) {
+                            visited[nxt] = true;
+                            q.offer(nxt);
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+        return answer;
+    }
+}
