@@ -49,3 +49,53 @@ class Solution {
         return answer;
     }
 }
+
+// 240111
+import java.util.*;
+
+class Solution {
+    public int[] solution(int[] progresses, int[] speeds) {
+        List<Integer> answerList = new ArrayList<>();
+        
+        // 1. progresses, speeds를 큐에 넣기
+        Queue<Integer> progressesQ = new LinkedList<>();
+        Queue<Integer> speedsQ = new LinkedList<>();
+        for (int progress : progresses) {
+            progressesQ.offer(progress);
+        }
+        for (int speed : speeds) {
+            speedsQ.offer(speed);
+        }
+        
+        // progress가 다 끝날 때까지
+        while (!progressesQ.isEmpty()) {
+            
+            // 2. 한 바퀴 돌면서 작업
+            for (int i=0; i<progressesQ.size(); i++) {
+                int progress = progressesQ.poll();
+                int speed = speedsQ.poll();
+                progressesQ.offer(progress+speed);
+                speedsQ.offer(speed);
+            }
+            
+            // 3. peek으로 확인해서 poll할 수 있을 때까지 poll
+            int cnt = 0;
+            while (!progressesQ.isEmpty() && progressesQ.peek() >= 100) {
+                progressesQ.poll();
+                speedsQ.poll();
+                cnt++;
+            }
+            
+            if (cnt != 0) {
+                answerList.add(cnt);
+            }
+        }
+        
+        int[] answer = new int[answerList.size()];
+        for (int i=0; i<answerList.size(); i++) {
+            answer[i] = answerList.get(i);
+        }
+        
+        return answer;
+    }
+}
