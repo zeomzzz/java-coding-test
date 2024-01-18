@@ -78,3 +78,51 @@ public class Main {
     }
 
 }
+
+import java.io.*;
+import java.util.*;
+
+// 1. 완탐 접근
+// 7중 for문
+
+// 2. 투포인터로 푼다면?
+// 9명 중에 아닌 두 명을 찾는다
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	int totalHeight = 0;
+    	int[] heights = new int[9];
+    	
+    	for (int i=0; i<9; i++) {
+    		heights[i] = Integer.parseInt(br.readLine());
+    		totalHeight += heights[i];
+    	}
+    	
+    	int target = totalHeight - 100;
+    	Arrays.sort(heights);
+    	int start = 0;
+    	int end = 8;
+    	
+    	while (start < end) {
+    		if (heights[start] + heights[end] == target) {
+    			break;
+    		} else if (heights[start] + heights[end] > target) {
+    			end--; // heights[end]를 정답 범위에서 제외
+    		} else {
+    			start++; // heights[start]를 정답 범위에서 제외
+    		}
+    	}
+    	
+    	StringBuilder sb = new StringBuilder();
+    	for (int i=0; i<9; i++) {
+    		if (i != end && i != start) {
+    			sb.append(heights[i] + "\n");
+    		}
+    	}
+    	
+    	System.out.print(sb);
+    }    
+};
