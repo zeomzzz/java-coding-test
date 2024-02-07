@@ -81,3 +81,47 @@ public class Main {
     }
     
 };
+
+// 다른 방식의 백트래킹
+import java.io.*;
+import java.util.*;
+
+// 백트래킹으로 확인
+public class Main {
+	
+	static int cnt = 0;
+	
+    public static void main(String[] args) throws IOException {
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+    	int N = Integer.parseInt(st.nextToken()); // 정수 N개
+    	long S = Long.parseLong(st.nextToken()); // 합 S
+    	
+    	long[] nums = new long[N];
+    	st = new StringTokenizer(br.readLine());
+    	for (int i=0; i<N; i++) {
+    		nums[i] = Long.parseLong(st.nextToken());
+    	}
+    	
+    	backtracking(0, 0, 0, S, N, nums);
+    	
+    	System.out.print(cnt);
+    }
+    
+    static void backtracking(int cur, int start, long sum, long target, int N, long[] nums) {
+    	
+    	if (start == N) {
+    		if (cur != 0 && sum == target) {
+    			cnt++;
+    		}
+    		return;
+    	}
+    	
+    	// 이번거 선택
+    	backtracking(cur+1, start+1, sum+nums[start], target, N, nums);
+    	// 선택 안함
+    	backtracking(cur, start+1, sum, target, N, nums);
+    }
+    
+};
