@@ -40,3 +40,46 @@ class Solution {
         return answer;
     }
 }
+
+// 이분탐색 풀이
+import java.util.*;
+
+class Solution {
+    public int solution(int[] queue1, int[] queue2) {
+        int answer = 0;
+        
+        int[] nums = new int[queue1.length * 2];
+        int idx = 0;
+        long sum1 = 0;
+        long sum2 = 0;
+        for (int num : queue1) {
+            nums[idx++] = num;
+            sum1 += num;
+        }
+        for (int num : queue2) {
+            nums[idx++] = num;
+            sum2 += num;
+        }
+        
+        int s = 0;
+        int e = queue1.length;
+        
+        while (s < e && e < nums.length) {
+            if (sum1 == sum2) break;
+            else if (sum1 > sum2) {
+                sum1 -= nums[s];
+                sum2 += nums[s];
+                s++;
+            } else {
+                sum1 += nums[e];
+                sum2 -= nums[e];
+                e++;
+            }
+            answer++;
+        }
+        
+        if (sum1 != sum2) answer = -1;
+        
+        return answer;
+    }
+}
