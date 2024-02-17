@@ -31,3 +31,47 @@ public class Main {
     	return dp[cur][sum] = Math.min(Math.min(recur(cur, sum+cur*cur)+1, recur(cur+1, sum+cur*cur)+1), recur(cur+1, sum));
     }
 };
+
+
+import java.io.*;
+import java.util.*;
+
+// 1. 백트래킹으로 짠다.
+// 2. return 방식으로 바꾼다.
+// 3. dp로 바꾼다.
+public class Main {
+	
+	static int N;
+	static int[] dp;
+
+    public static void main(String[] args) throws IOException {
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	N = Integer.parseInt(br.readLine());
+    	dp = new int[N+1];
+    	Arrays.fill(dp, N+1);
+    	dp[N] = 0;
+    	
+    	for (int sum=N; sum>=0; sum--) {
+    		for (int nxt=1; sum+nxt*nxt<=N; nxt++) {
+        		dp[sum] = Math.min(dp[sum], dp[sum+nxt*nxt]+1);
+        	}
+    	}
+    	
+    	System.out.print(dp[0]);
+    }
+
+//    static int recur(int sum) { // cnt를 return
+//    	
+//    	int result = Integer.MAX_VALUE;
+//    	
+//    	if (sum == N) return 0;
+//    	if (sum > N) return Integer.MAX_VALUE;
+//    	
+//    	if (dp[sum] != Integer.MAX_VALUE) return dp[sum];
+//    	
+//    	for (int nxt=1; sum+nxt*nxt<=N; nxt++) {
+//    		result = Math.min(result, recur(sum+nxt*nxt)+1);
+//    	}
+//    	return dp[sum] = result;
+//    }
+};
