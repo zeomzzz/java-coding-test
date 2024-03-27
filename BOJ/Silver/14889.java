@@ -74,3 +74,98 @@ public class Main {
 	}
 
 }
+
+// 240327
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int N, start, link, answer, n;
+	static int[][] stats;
+	static int[] starts, links;
+	static boolean[] visited;
+	
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	N = Integer.parseInt(br.readLine());
+    	stats = new int[N+1][N+1];
+    	StringTokenizer st;
+    	
+    	for (int r=1; r<N+1; r++) {
+    		st = new StringTokenizer(br.readLine());
+    		for (int c=1; c<N+1; c++) stats[r][c] = Integer.parseInt(st.nextToken());
+    	}
+    	
+    	answer = Integer.MAX_VALUE;
+    	n = (int) N/2;
+    	starts = new int[n];
+    	links = new int[n];
+    	visited = new boolean[N+1];
+    	visited[1] = true;
+    	
+    	recur(1, 2);
+    	
+    	System.out.print(answer);
+    }
+    
+    static void recur(int cur, int start) {
+    	
+    	if (cur == n) {
+//    		System.out.println(Arrays.toString(visited));
+    		divide();
+    		calStart();
+    		calLink();
+    		updateAns();
+    		return;
+    	}
+    	
+    	for (int i=start; i<N+1; i++) {
+    		visited[i] = true;
+    		recur(cur+1, i+1);
+    		visited[i] = false;
+    	}
+    	
+    }
+    
+    static void divide() {
+    	int startIdx = 0;
+    	int linkIdx = 0;
+    	
+    	for (int i=1; i<N+1; i++) {
+    		if (visited[i]) {
+    			starts[startIdx++] = i;
+    		} else {
+    			links[linkIdx++] = i;
+    		}
+    	}
+    }
+    
+    static void calStart() {
+    	start = 0;
+    	
+    	for (int i=0; i<n; i++) {
+    		for (int j=i+1; j<n; j++) {
+    			start += stats[starts[i]][starts[j]];
+    			start += stats[starts[j]][starts[i]];
+    		}
+    	}
+    }
+    
+    static void calLink() {
+    	link = 0;
+    	
+    	for (int i=0; i<n; i++) {
+    		for (int j=i+1; j<n; j++) {
+    			link += stats[links[i]][links[j]];
+    			link += stats[links[j]][links[i]];
+    		}
+    	}
+    }
+    
+    static void updateAns() {
+    	answer = Math.min(answer, Math.abs(start-link));
+    }
+    
+};
