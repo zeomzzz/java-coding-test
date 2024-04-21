@@ -25,3 +25,35 @@ public class Main {
     }
 
 }
+
+// 240421
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int A, B, a, b;
+	
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	A = Integer.parseInt(st.nextToken());
+    	B = Integer.parseInt(st.nextToken());
+    	
+    	outer : for (int i=-1000; i<=1000; i++) {
+    		for (int j=i; j<=1000; j++) {
+    			if (i+j == -2 * A && i*j == B) {
+    				a = i;
+    				b = j;
+    				break outer;
+    			}
+    		}
+    	}
+    	
+    	if (a == b) System.out.print(a);
+    	else System.out.print(a + " " + b);
+    	
+    }
+    
+};
