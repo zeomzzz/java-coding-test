@@ -126,3 +126,48 @@ public class Main {
     	System.out.print(sb);
     }    
 };
+
+// 240423
+import java.io.*;
+import java.util.*;
+
+// 일곱 난쟁이의 키의 합이 100
+// 9명 중 2명의 인덱스를 찾는다
+
+public class Main {
+	
+	static int ans1, ans2;
+	static int[] ps;
+	
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+    	ps = new int[9];
+    	int sum = 0;
+    	
+    	for (int i=0; i<9; i++) {
+    		ps[i] = Integer.parseInt(br.readLine());
+    		sum += ps[i];
+    	}
+    	Arrays.sort(ps);
+    	
+    	int gap = sum - 100;
+    	for (int i=0; i<9; i++) {
+    		for (int j=0; j<9; j++) {
+    			if (ps[i] + ps[j] == gap) {
+    				ans1 = i;
+    				ans2 = j;
+    			}
+    		}
+    	}
+    	
+    	for (int i=0; i<9; i++) {
+    		if (i == ans1 || i == ans2) continue;
+    		System.out.println(ps[i]);
+    	}
+    	
+    }
+    
+};
