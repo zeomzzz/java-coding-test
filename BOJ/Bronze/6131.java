@@ -23,3 +23,34 @@ public class Main {
     }
 
 }
+
+// 240425
+import java.io.*;
+import java.util.*;
+
+// A * A = B * B + N
+// 500 * 500 < 100,000,000
+
+public class Main {
+	
+	static int N;
+	
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+    	N = Integer.parseInt(br.readLine());
+    	
+    	int ans = 0;
+    	
+    	for (int a=1; a<=500; a++) {
+    		for (int b=1; b<=500; b++) {
+    			if (a*a == b*b + N) ans++;
+    		}
+    	}
+    	
+    	System.out.print(ans);
+    }
+    
+};
