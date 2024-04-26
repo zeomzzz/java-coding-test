@@ -42,3 +42,67 @@ public class Main {
     }
 
 };
+
+// 240426
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int N;
+	
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	
+    	N = Integer.parseInt(br.readLine());
+    	Lifeguard[] lifeguards = new Lifeguard[N];
+    	int[] visited = new int[1001];
+    	
+//    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	StringTokenizer st;
+    	for (int i=0; i<N; i++) {
+    		st = new StringTokenizer(br.readLine());
+    		lifeguards[i] = new Lifeguard(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
+    		
+    		for (int j=lifeguards[i].start; j<lifeguards[i].end; j++) {
+    			visited[j]++;
+    		}
+    	}
+    	
+    	// 하나 씩 제외해보기
+    	int start;
+    	int end;
+    	int ans = 0;
+    	for (int i=0; i<N; i++) {
+    		start = lifeguards[i].start;
+    		end = lifeguards[i].end;
+    		
+    		int tmp = 0;
+    		for (int j=0; j<1001; j++) {
+    			if (j >= start && j < end) {
+    				if (visited[j] > 1) tmp++;
+    			} else {
+    				if (visited[j] > 0) tmp++;
+    			}
+    		}
+    		
+    		ans = Math.max(ans, tmp);
+    		
+    	}
+    	
+    	System.out.print(ans);
+    	
+    }
+    
+    static class Lifeguard {
+    	int start;
+    	int end;
+    	
+    	public Lifeguard(int start, int end) {
+    		this.start = start;
+    		this.end = end;
+    	}
+    }
+    
+};
