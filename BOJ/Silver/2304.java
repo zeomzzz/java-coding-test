@@ -84,3 +84,50 @@ public class Main {
     }
     
 };
+
+// 240428
+import java.io.*;
+import java.util.*;
+
+// 좌 -> 우 : 왼쪽과 나랑 비교해서 더 높은 것
+// 우 -> 좌 : 오른쪽과 나랑 비교해서 더 높은 것
+
+public class Main {
+	
+	static int[] heights, leftMax, rightMax;
+	static int N, ans;
+	
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+    	N = Integer.parseInt(br.readLine());
+    	heights = new int[1002];
+    	leftMax = new int[1002];
+    	rightMax = new int[1002];
+    	
+    	StringTokenizer st;
+    	for (int i=0; i<N; i++) {
+    		st = new StringTokenizer(br.readLine());
+    		heights[Integer.parseInt(st.nextToken())] = Integer.parseInt(st.nextToken());
+    	}
+    	
+    	for (int i=1; i<=1000; i++) {
+    		leftMax[i] = Math.max(leftMax[i-1], heights[i]);
+    	}
+    	
+    	for (int i=1000; i>=1; i--) {
+    		rightMax[i] = Math.max(rightMax[i+1], heights[i]);
+    	}
+    	
+    	ans = 0;
+    	for (int i=1; i<=1000; i++) {
+    		ans += Math.min(leftMax[i], rightMax[i]);
+    	}
+    	
+    	System.out.print(ans);
+    	
+    }
+    
+};
