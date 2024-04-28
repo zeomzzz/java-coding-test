@@ -68,3 +68,88 @@ public class Main {
     	
     }
 };
+
+// 240428
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int N, ans;
+	static boolean[] isProper;
+	
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	StringTokenizer st;
+    	
+    	N = Integer.parseInt(br.readLine());
+    	
+    	// 111 ~ 999 에서 불가능한 것을 지우기
+    	isProper = new boolean[1000];
+    	Arrays.fill(isProper, true);
+    	
+    	// 서로 다른 숫자 세 개로 구성되지 않은 숫자 + 0이 포함되는 숫자 제거
+    	for (int i=111; i<=999; i++) {
+    		String str = Integer.toString(i);
+    		char c0 = str.charAt(0);
+    		char c1 = str.charAt(1);
+    		char c2 = str.charAt(2);
+    		
+    		if (c0 != '0' && c1 != '0' && c2 != '0' && c0 != c1 && c1 != c2 && c2 != c0) {
+    			continue;
+    		}
+    		isProper[i] = false;
+    	}
+    	
+    	int trial, strikeCnt, ballCnt;
+    	for (int i=0; i<N; i++) {
+    		st = new StringTokenizer(br.readLine());
+    		trial = Integer.parseInt(st.nextToken());
+    		strikeCnt = Integer.parseInt(st.nextToken());
+    		ballCnt = Integer.parseInt(st.nextToken());
+    		
+    		for (int j=111; j<=999; j++) {
+    			if (strikeCnt == getStrikeCnt(trial, j) && ballCnt == getBallCnt(trial, j)) {
+    				continue;
+    			}
+    			isProper[j] = false;
+    		}
+    	}
+    	
+    	ans = 0;
+    	for (int i=111; i<=999; i++) {
+    		if(isProper[i]) ans++;
+    	}
+    	
+    	System.out.print(ans);
+    }
+    
+    static int getStrikeCnt(int trial, int ans) {
+    	int result = 0;
+    	String trialStr = Integer.toString(trial);
+    	String ansStr = Integer.toString(ans);
+    	
+    	for (int i=0; i<3; i++) {
+    		if (trialStr.charAt(i) == ansStr.charAt(i)) result++;
+    	}
+    	
+    	return result;
+    }
+    
+    static int getBallCnt(int trial, int ans) {
+    	int result = 0;
+    	String trialStr = Integer.toString(trial);
+    	String ansStr = Integer.toString(ans);
+    	
+    	for (int i=0; i<3; i++) {
+    		for (int j=0; j<3; j++) {
+    			if (trialStr.charAt(i) == ansStr.charAt(j) && i!=j) result++;
+    		}
+    	}
+    	
+    	return result;
+    }
+    
+};
