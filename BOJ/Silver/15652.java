@@ -37,3 +37,50 @@ public class Main {
     }
     
 };
+
+// 240502
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int N, M;
+	static int[] selected;
+	static StringBuilder answer;
+	
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+    	N = Integer.parseInt(st.nextToken());
+    	M = Integer.parseInt(st.nextToken());
+    	
+    	answer = new StringBuilder();
+    	
+    	selected = new int[M];
+    	
+    	recur(0, 1);
+    	
+    	System.out.print(answer);
+    }
+    
+    public static void recur(int cur, int start) {
+    	
+    	if (cur == M) {
+    		StringBuilder sb = new StringBuilder();
+    		for (int select : selected) {
+    			sb.append(select + " ");
+    		}
+    		sb.append("\n");
+    		answer.append(sb);
+    		return;
+    	}
+    	
+    	for (int i=start; i<=N; i++) {
+    		selected[cur] = i;
+    		recur(cur+1, i);
+    	}
+    }
+    
+};
