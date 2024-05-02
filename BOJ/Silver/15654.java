@@ -51,3 +51,64 @@ public class Main {
     }
     
 };
+
+// 240502
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int N, M;
+	static int[] selected, nums;
+	static boolean[] visited;
+	static StringBuilder answer;
+	
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+    	N = Integer.parseInt(st.nextToken());
+    	M = Integer.parseInt(st.nextToken());
+    	
+    	st = new StringTokenizer(br.readLine());
+    	nums = new int[N];
+    	for (int i=0; i<N; i++) {
+    		nums[i] = Integer.parseInt(st.nextToken());
+    	}
+    	Arrays.sort(nums);
+    	
+    	visited = new boolean[N];
+    	answer = new StringBuilder();
+    	
+    	selected = new int[M];
+    	
+    	recur(0);
+    	
+    	System.out.print(answer);
+    }
+    
+    public static void recur(int cur) {
+    	
+    	if (cur == M) {
+    		StringBuilder sb = new StringBuilder();
+    		for (int select : selected) {
+    			sb.append(select + " ");
+    		}
+    		sb.append("\n");
+    		answer.append(sb);
+    		return;
+    	}
+    	
+    	for (int i=0; i<N; i++) {
+    		if (visited[i]) continue;
+    		visited[i] = true;
+    		selected[cur] = nums[i];
+    		
+    		recur(cur+1);
+    		
+    		visited[i] = false;
+    	}
+    }
+    
+};
