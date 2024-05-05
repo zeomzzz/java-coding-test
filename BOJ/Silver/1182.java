@@ -125,3 +125,52 @@ public class Main {
     }
     
 };
+
+// 240505
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int N, S, sum, answer;
+	static int[] nums;
+	
+    public static void main(String[] args) throws IOException {
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+    	N = Integer.parseInt(st.nextToken());
+    	S = Integer.parseInt(st.nextToken());
+    	
+    	nums = new int[N];
+    	
+    	st = new StringTokenizer(br.readLine());
+    	for (int i=0; i<N; i++) {
+    		nums[i] = Integer.parseInt(st.nextToken());
+    	}
+    	Arrays.sort(nums);
+    	
+    	sum = 0;
+    	answer = 0;
+    	
+    	recur(0);
+    	
+    	System.out.print(answer);
+    }
+    
+    public static void recur(int start) {
+    	
+    	if (start == N) return;
+    	
+    	for (int i=start; i<N; i++) {
+    		sum += nums[i];
+    		if (sum == S) answer++;
+    		
+    		recur(i+1);
+    		sum -= nums[i];
+    	}
+    	
+    }
+    
+};
