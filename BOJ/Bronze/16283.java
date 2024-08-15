@@ -126,3 +126,45 @@ public class Main {
     }
     
 };
+
+// 240815
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int a, b, n, w;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        a = Integer.parseInt(st.nextToken());
+        b = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
+        w = Integer.parseInt(st.nextToken());
+        
+        int sheep = 0;
+        int lamb = 0;
+        
+        for (int i=1; i<n; i++) {
+        	if (a*i + b*(n-i) == w) {
+        		if (sheep == 0 && lamb == 0) { // 아직 해가 없었으면
+        			sheep = i;
+        			lamb = n-i;
+        		} else { // 해가 이미 있음 == 해가 2개 이상
+        			sheep = lamb = 0;
+        			break;
+        		}
+        	}
+        }
+        
+        if (sheep == 0 && lamb == 0) {
+        	System.out.print(-1);
+        } else {
+        	System.out.print(sheep + " " + lamb);
+        }
+        
+    }
+
+};
