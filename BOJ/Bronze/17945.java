@@ -136,3 +136,28 @@ class Main {
 
 };
 
+// 240815
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int A, B;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        A = Integer.parseInt(st.nextToken());
+        B = Integer.parseInt(st.nextToken());
+        
+        // x^2 + 2Ax + B = 0
+       for (int i=-1000; i<=1000; i++) {
+    	   if (i*i + 2*A*i + B == 0) {
+    		   System.out.print(i + " ");
+    	   }
+       }
+        
+    }
+
+};
