@@ -153,3 +153,83 @@ public class Main {
     }
     
 };
+
+// 240818
+// 정답 아닌 것 다 true로 바꾸기
+// 최대 1,000 * 100
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+        N = Integer.parseInt(st.nextToken());
+        Queue<Integer> q = new LinkedList<>();
+        int guess = 0;
+        int strike = 0;
+        int ball = 0;
+        
+        for (int i=1; i<10; i++) {
+        	for (int j=1; j<10; j++) {
+        		for (int k=1; k<10; k++) {
+        			if (i != j && j != k && i != k) {
+        				q.offer(i*100 + j*10 + k);
+        			}
+        		}
+        	}
+        }
+        
+        int target = 0;
+        int l = 0;
+        for (int tc=0; tc<N; tc++) {
+        	st = new StringTokenizer(br.readLine());
+        	guess = Integer.parseInt(st.nextToken());
+        	strike = Integer.parseInt(st.nextToken());
+        	ball = Integer.parseInt(st.nextToken());
+        	
+        	l = q.size();
+        	for (int i=0; i<l; i++) {
+        		if (q.size() == 0) break;
+        		
+        		target = q.poll();
+        		if (checkIsPossible(target, guess, strike, ball)) {
+        			q.offer(target);
+        		}
+        	}
+        }
+        
+        System.out.print(q.size());
+        
+    }
+    
+    static boolean checkIsPossible(int n1, int n2, int strike, int ball) {
+    	
+    	String s1 = Integer.toString(n1);
+    	String s2 = Integer.toString(n2);
+    	int tmpStrike = 0;
+    	int tmpBall = 0;
+    	
+    	for (int i=0; i<3; i++) {
+    		for (int j=0; j<3; j++) {
+    			if (s1.charAt(i) == s2.charAt(j)) {
+    				if (i == j) {
+    					tmpStrike++;
+    				} else {
+    					tmpBall++;
+    				}
+    			}
+    		}
+    	}
+    	
+    	if (strike == tmpStrike && ball == tmpBall) {
+    		return true;
+    	}
+    	return false;
+    } 
+
+};
