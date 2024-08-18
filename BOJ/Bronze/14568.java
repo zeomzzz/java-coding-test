@@ -60,3 +60,44 @@ public class Main {
     }
     
 };
+
+// 240818
+// th + ng + yh == N
+// nh >= yh + 2
+// th, ng, yh > 0
+// th % 2 == 0
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringTokenizer st = new StringTokenizer(br.readLine());
+    	N = Integer.parseInt(br.readLine());
+    	
+    	int cnt = 0;
+    	
+    	for (int th=2; th<N; th+=2) { // th
+    		for (int ng=1; ng<N; ng++) { // ng
+    			for (int yh=1; yh<N; yh++) { // yh
+    				if (th + ng + yh != N) {
+    					continue;
+    				}
+    				
+    				if (!(ng - yh >= 2)) {
+    					continue;
+    				}
+    				
+    				cnt++;
+    			}
+    		}
+    	}
+    	
+    	System.out.print(cnt);
+    	
+    }
+
+};
