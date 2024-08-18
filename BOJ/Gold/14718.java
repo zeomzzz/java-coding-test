@@ -131,3 +131,80 @@ public class Main {
     }
     
 };
+
+// 240818
+// enemyPower <= jinsuPower && enemySpeed <= jinsuSpeed && enemyIntell <= jinsuIntell
+// 병사의 스탯을 모두 각 배열에 넣고 정렬
+// 이 스탯의 조합을 구하고 -> 100 * 100 * 100 = 1,000,000
+// N개 다 확인하면서 K개 병사 이기는 합이 가장 작은 조합 찾기 => *100 = 100,000,000
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N, K;
+	static int[] enemyPowers;
+	static int[] enemySpeeds;
+	static int[] enemyIntells;
+	static Enemy[] enemies;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+        enemies = new Enemy[N];
+        enemyPowers = new int[N];
+        enemySpeeds = new int[N];
+        enemyIntells = new int[N];
+        
+        for (int i=0; i<N; i++) {
+        	st = new StringTokenizer(br.readLine());
+        	
+        	enemies[i] = new Enemy();
+        	enemies[i].power = Integer.parseInt(st.nextToken());
+        	enemies[i].speed = Integer.parseInt(st.nextToken());
+        	enemies[i].intell = Integer.parseInt(st.nextToken());
+        	
+        	enemyPowers[i] = enemies[i].power;
+        	enemySpeeds[i] = enemies[i].speed;
+        	enemyIntells[i] = enemies[i].intell;
+        }
+        
+        Arrays.sort(enemyPowers);
+        Arrays.sort(enemySpeeds);
+        Arrays.sort(enemyIntells);
+        
+        int sum = Integer.MAX_VALUE;
+        for (int speed : enemySpeeds) {
+        	for (int power : enemyPowers) {
+        		for (int intell : enemyIntells) {
+        			if (sum <= power + speed + intell) continue;
+        			
+        			int tmpCnt = 0;
+        			for (Enemy e : enemies) {
+        				if (tmpCnt == K) break;
+        				
+        				if (e.power > power) continue;
+        				if (e.speed > speed) continue;
+        				if (e.intell > intell) continue;
+        				tmpCnt++;
+
+        			}
+        			
+        			if (tmpCnt == K) sum = power+ speed + intell;
+        		}
+        	}
+        }
+        
+        System.out.print(sum);
+    }
+    
+};
+
+class Enemy {
+	int power, speed, intell;
+}
+
+
