@@ -83,3 +83,44 @@ public class Main {
     }
     
 };
+
+// 240818
+// 도화지 다 칠하기. 단, 시작점의 좌표를 칠한다.
+// 10 * 10 * 100 이하
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N;
+	static boolean[][] papers;
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+        papers = new boolean[100][100];
+    	N = Integer.parseInt(st.nextToken());
+    	int x = 0;
+    	int y = 0;
+    	int cnt = 0;
+    	
+    	for (int i=0; i<N; i++) {
+    		st = new StringTokenizer(br.readLine());
+    		x = Integer.parseInt(st.nextToken());
+    		y = Integer.parseInt(st.nextToken());
+    		
+    		for (int j=x; j<100 && j<x+10; j++) {
+    			for (int k=y; k<100 && k<y+10; k++) {
+    				if (!papers[j][k]) {
+    					papers[j][k] = true;
+    					cnt++;
+    				}
+    			}
+    		}
+    	}
+        
+    	System.out.print(cnt);
+    }
+
+};
