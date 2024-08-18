@@ -171,3 +171,50 @@ public class Main {
     }
     
 };
+
+// 240818
+// 총 합 찾고
+// 총 합 - 100 인 조합 찾기
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int[] nums;
+
+    public static void main(String[] args) throws IOException {
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringTokenizer st = new StringTokenizer(br.readLine());
+    	
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+       nums = new int[9];
+       int sum = 0;
+       for (int i=0; i<9; i++) {
+    	   nums[i] = Integer.parseInt(br.readLine());
+    	   sum += nums[i];
+       }
+       
+       Arrays.sort(nums);
+       
+       int target = sum - 100;
+       int fakeIdx01 = -1;
+       int fakeIdx02 = -1;
+       outer: for (int i=0; i<9; i++) {
+    	   for (int j=i+1; j<9; j++) {
+    		   if (nums[i] + nums[j] == target) {
+    			   fakeIdx01 = i;
+    			   fakeIdx02 = j;
+    			   break outer;
+    		   }
+    	   }
+       }
+       
+       for (int i=0; i<9; i++) {
+    	   if (i != fakeIdx01 && i != fakeIdx02) {
+    		   System.out.println(nums[i]);
+    	   }
+       } 
+    }
+
+};
