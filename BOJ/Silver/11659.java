@@ -31,3 +31,41 @@ public class Main {
     }
     
 };
+
+// 240822
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N, M;
+	static int[] prefix_sum;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        N = Integer.parseInt(st.nextToken());
+    	M = Integer.parseInt(st.nextToken());
+    	prefix_sum = new int[N+1];
+    	
+    	st = new StringTokenizer(br.readLine());
+    	for (int i=1; i<=N; i++) {
+    		prefix_sum[i] += prefix_sum[i-1] + Integer.parseInt(st.nextToken());
+    	}
+        
+    	StringBuilder sb = new StringBuilder();
+    	int a, b = 0;
+    	for (int i=0; i<M; i++) {
+    		st = new StringTokenizer(br.readLine());
+    		a = Integer.parseInt(st.nextToken());
+    		b = Integer.parseInt(st.nextToken());
+    		
+    		sb.append(prefix_sum[b] - prefix_sum[a-1] + "\n");
+    	}
+    	
+    	System.out.print(sb);
+    	
+    }
+    
+};
