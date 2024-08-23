@@ -131,3 +131,47 @@ public class Main {
     }
     
 };
+
+// 240823
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N;
+	static int[] heights, front_max, rear_max;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        N = Integer.parseInt(st.nextToken());
+        front_max = new int[1002]; // 좌->우 max
+    	rear_max = new int[1002]; // 우->좌 max
+    	
+    	int idx = 0;
+    	int h = 0;
+    	for (int i=0; i<N; i++) {
+    		st = new StringTokenizer(br.readLine());
+    		idx = Integer.parseInt(st.nextToken());
+    		h = Integer.parseInt(st.nextToken());
+    		
+    		front_max[idx] = h;
+    		rear_max[idx] = h;
+    	}
+    	
+    	for (int i=1; i<=1000; i++) {
+    		front_max[i] = Math.max(front_max[i], front_max[i-1]);
+    		rear_max[1001-i] = Math.max(rear_max[1001-i], rear_max[1002-i]);
+    	}
+    	
+    	int answer = 0;
+    	for (int i=1; i<=1000; i++) {
+    		answer += Math.min(front_max[i], rear_max[i]); // max 중 min
+    	}
+    	
+    	System.out.print(answer);
+    	
+    }
+    
+};
