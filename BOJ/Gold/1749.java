@@ -31,3 +31,51 @@ public class Main {
     	System.out.print(max);
     }    
 };
+
+// 240824
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N, M;
+	static long[][] prefixSum;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        prefixSum = new long[N+1][M+1];
+        
+        long tmp = 0;
+        for (int i=1; i<=N; i++) {
+        	st = new StringTokenizer(br.readLine());
+        	for (int j=1; j<=M; j++) {
+        		tmp = Long.parseLong(st.nextToken());
+        		prefixSum[i][j] = tmp + prefixSum[i-1][j] + prefixSum[i][j-1] - prefixSum[i-1][j-1];
+        	}
+        }
+        
+        long answer = Long.MIN_VALUE;
+        tmp = 0;
+        for (int x1=1; x1<=N; x1++) {
+        	for (int y1=1; y1<=M; y1++) {
+        		
+        		for (int x2=1; x2<=x1; x2++) {
+        			for (int y2=1; y2<=y1; y2++) {
+        				
+        				tmp = prefixSum[x1][y1] - prefixSum[x2-1][y1] - prefixSum[x1][y2-1] + prefixSum[x2-1][y2-1];
+        				answer = (long) Math.max(tmp, answer);
+        				
+        			}
+        		}
+        		
+        	}
+        }
+        
+        System.out.print(answer);
+    }
+    
+};
