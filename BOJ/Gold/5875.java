@@ -57,3 +57,48 @@ class Main {
     }
    
 };
+
+// 1억 = 100,000,000
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static String s;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringTokenizer st = new StringTokenizer(br.readLine());
+        s = br.readLine();
+        int l = s.length();
+        
+        int left = 0;
+        int right = 0;
+        int total = 0;
+        int answer = 0;
+        for (int i=0; i<l; i++) {
+        	if (s.charAt(i) == '(') {
+        		left++;
+        		total++;
+        	} else { // ')'
+        		right++;
+        		total--;
+        	}
+        	
+        	if (total < 0) { // 닫는게 더 많은 문제 발생 -> 닫는거 하나는 바꿔줘야 함
+    			answer = right;
+    			break;
+    		} else if (total == 1) { // 현재까지 문제 없음 -> 이 앞의 여는 괄호는 후보 제외
+    			left = 0;
+    		}
+        }
+        
+        if (answer == 0) {
+        	answer = left;
+        }
+        
+        System.out.print(answer);
+    }
+   
+};
+
