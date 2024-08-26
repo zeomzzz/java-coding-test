@@ -48,3 +48,50 @@ public class Main {
     	System.out.printf("%d %d", min, cnt);
     }    
 };
+
+// 240826
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N, H;
+	static int[] blocks;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        N = Integer.parseInt(st.nextToken());
+        H = Integer.parseInt(st.nextToken());
+        
+        blocks = new int[H+2];
+        int size = 0;
+        for (int i=0; i<N; i++) {
+        	size = Integer.parseInt(br.readLine());
+        	if (i%2 == 0) {
+        		blocks[1]++;
+        		blocks[size+1]--;
+        	} else {
+        		blocks[H+1]--;
+        		blocks[H+1-size]++;
+        	}
+        }
+        
+        int min = Integer.MAX_VALUE;
+        int cnt = 0;
+        for (int i=1; i<=H; i++) {
+        	blocks[i] += blocks[i-1];
+        	if (blocks[i] < min) {
+        		min = blocks[i];
+        		cnt = 1;
+        	} else if (blocks[i] == min) {
+        		cnt++;
+        	}
+        }
+        
+        System.out.print(min + " " + cnt);
+        
+    }
+   
+};
