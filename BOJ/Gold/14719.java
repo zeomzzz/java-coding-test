@@ -35,3 +35,46 @@ public class Main {
     	System.out.print(answer);
     }    
 };
+
+// 240826
+// 1억 = 100,000,000
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int H, W;
+	static int[] blocks, prefixMax, suffixMax;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        H = Integer.parseInt(st.nextToken());
+        W = Integer.parseInt(st.nextToken());
+        
+        blocks = new int[W+2];
+        prefixMax = new int[W+2];
+        suffixMax = new int[W+2];
+        
+        st = new StringTokenizer(br.readLine());
+        for (int i=1; i<=W; i++) {
+        	blocks[i] = Integer.parseInt(st.nextToken());
+        	prefixMax[i] = Math.max(prefixMax[i-1], blocks[i]);
+        	suffixMax[i] = blocks[i];
+        }
+        
+        for (int i=W; i>=0; i--) {
+        	suffixMax[i] = Math.max(suffixMax[i+1], suffixMax[i]);
+        }
+        
+        int answer = 0;
+        for (int i=1; i<=W; i++) {
+        	answer += Math.min(prefixMax[i], suffixMax[i]) - blocks[i];
+        }
+        
+        System.out.print(answer);
+        
+    }
+   
+};
