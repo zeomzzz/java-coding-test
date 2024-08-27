@@ -33,3 +33,39 @@ public class Main {
     	System.out.print(cnt);
     }    
 };
+
+// 240827
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N;
+	static long K;
+	static long[] prefixSum;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        N = Integer.parseInt(st.nextToken());
+        K = Long.parseLong(st.nextToken());
+        
+        prefixSum = new long[N+1];
+        
+        Map<Long, Long> sumMap = new HashMap<>();
+        sumMap.put(0L, 1L);
+        
+        st = new StringTokenizer(br.readLine());
+        long answer = 0;
+        for (int i=1; i<=N; i++) {
+        	prefixSum[i] = prefixSum[i-1] + Long.parseLong(st.nextToken());
+        	
+        	answer += sumMap.getOrDefault(prefixSum[i]-K, 0L);
+        	sumMap.put(prefixSum[i], sumMap.getOrDefault(prefixSum[i], 0L) + 1);
+        }
+        
+        System.out.print(answer);
+    }
+   
+};
