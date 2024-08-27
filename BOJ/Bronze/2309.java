@@ -218,3 +218,51 @@ class Main {
     }
 
 };
+
+// 240827
+// 투포인터
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int[] heights;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        heights = new int[9];
+        int sum = 0;
+        for (int i=0; i<9; i++) {
+        	heights[i] = Integer.parseInt(br.readLine());
+        	sum += heights[i];
+        }
+        
+        Arrays.sort(heights);
+        
+        int target = sum - 100;
+        int s = 0;
+        int e = 8;
+        
+        while (s < e) {
+        	if (heights[s] + heights[e] == target) {
+        		break;
+        	} else if (heights[s] + heights[e] > target) {
+        		e--;
+        	} else {
+        		s++;
+        	}
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<9; i++) {
+        	if (i != s && i != e) {
+        		sb.append(heights[i] + "\n");
+        	}
+        }
+        
+        System.out.print(sb);
+    }
+   
+};
