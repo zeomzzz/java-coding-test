@@ -42,3 +42,47 @@ public class Main {
     	System.out.print(cnt);
     }    
 };
+
+// 240827
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int n, x;
+	static int[] nums;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        n = Integer.parseInt(st.nextToken());
+        nums = new int[n];
+        st = new StringTokenizer(br.readLine());
+        for (int i=0; i<n; i++) {
+        	nums[i] = Integer.parseInt(st.nextToken());
+        }
+        st = new StringTokenizer(br.readLine());
+        x = Integer.parseInt(st.nextToken());
+        
+        Arrays.sort(nums);
+        
+        int s = 0;
+        int e = n-1;
+        int answer = 0;
+        while (s < e) {
+        	int tmpSum = nums[s] + nums[e];
+        	if (tmpSum < x) {
+        		s++;
+        	} else if (tmpSum > x) {
+        		e--;
+        	} else {
+        		answer++;
+        		e--;
+        	}
+        }
+        
+        System.out.print(answer);
+    }
+   
+};
