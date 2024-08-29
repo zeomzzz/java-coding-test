@@ -61,3 +61,60 @@ public class Main {
     	
     }    
 };
+
+// 240829
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N;
+	static long[] liquids;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        N = Integer.parseInt(st.nextToken());
+        liquids = new long[N];
+        
+        st = new StringTokenizer(br.readLine());
+        for (int i=0; i<N; i++) {
+        	liquids[i] = Long.parseLong(st.nextToken());
+        }
+        
+        int s = 0;
+        int e = N-1;
+        long target = Long.MAX_VALUE;
+        long tmp = 0L;
+        
+        long small = 0;
+        long big = 0;
+        
+        while (s < e) {
+        	tmp = liquids[s] + liquids[e];
+        	
+        	if (target > Math.abs(tmp)) {
+        		target = Math.abs(tmp);
+        		small = liquids[s];
+        		big = liquids[e];
+        	}
+        	
+        	if (tmp == 0) {
+        		small = liquids[s];
+        		big = liquids[e];
+        		break;
+        	} else {
+        		if (tmp < 0) {
+        			s++;
+        		} else { // tmp > 0
+        			e--;
+        		}
+        	}
+        }
+        
+        System.out.print(small + " " + big);
+        
+    }
+   
+};
