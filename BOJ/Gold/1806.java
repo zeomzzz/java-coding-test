@@ -49,3 +49,64 @@ public class Main {
     	
     }    
 };
+
+// 240830
+/*
+ * 1. 완탐
+ * - 모든 부분합을 구한다. : N * N = 10,000,000,000 > 0.5초
+ * 
+ * 2. 투포인터
+ * - 맨 앞부터 부분합 구하기
+ */
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N;
+	static long S;
+	static long[] nums;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        N = Integer.parseInt(st.nextToken());
+        S = Long.parseLong(st.nextToken());
+        
+        nums = new long[N];
+        st = new StringTokenizer(br.readLine());
+        for (int i=0; i<N; i++) {
+        	nums[i] = Long.parseLong(st.nextToken());
+        }
+        
+        int s = 0;
+        int e = 0;
+        long sum = nums[s];
+        int min = Integer.MAX_VALUE;
+        while (true) {
+        	
+        	if (sum >= S) { // 크거나 같으면 길이를 줄여본다.
+        		min = Math.min(min, e-s+1);
+        		sum -= nums[s++];
+        	} else { // 작으면 길이를 늘려본다.
+        		e++;
+        		
+        		if (e == N) {
+        			break;
+        		}
+        		
+        		sum += nums[e];
+        	}
+        	
+        }
+        
+        if (min == Integer.MAX_VALUE) {
+        	min = 0;
+        }
+        
+        System.out.print(min);
+        
+    }
+   
+};
