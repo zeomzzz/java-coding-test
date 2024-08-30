@@ -52,3 +52,55 @@ public class Main {
     	System.out.print(cnt);
     }    
 };
+
+// 240830
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N;
+	static long M;
+	static long[] A;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        N = Integer.parseInt(st.nextToken());
+        M = Long.parseLong(st.nextToken());
+        
+        st = new StringTokenizer(br.readLine());
+        A = new long[N];
+        for (int i=0; i<N; i++) {
+        	A[i] = Long.parseLong(st.nextToken());
+        }
+        
+        int s = 0; // s부터
+        int e = 0; // e까지
+        long sum = A[s];
+        int answer = 0;
+        while (true) {
+        	
+        	if (sum == M) {
+        		answer++;
+        	}
+        	
+        	if (sum < M) { // sum이 더 작으면
+        		
+        		if (e == N-1) {// 이미 늘릴만큼 늘려줘서 못 늘린다.
+            		break;
+            	}
+        		
+        		sum += A[++e]; // 범위를 늘려준다
+        	} else { // sum이 더 크거나 같으면
+        		sum -= A[s++];// 범위를 줄여준다
+        	}
+        	
+        }
+        
+        System.out.print(answer);
+        
+    }
+   
+};
