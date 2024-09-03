@@ -35,3 +35,49 @@ public class Main {
     	}
     }    
 };
+
+
+// 240903
+/*
+ * 원래 몸무게 : A, 현재 몸무게 : B 이면
+ * G = B^2 - A^2
+ * G = (B+A)(B-A)
+ * G의 약수 중 찾기
+ */
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static long G;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        G = Long.parseLong(st.nextToken());
+        List<Long> lst = new LinkedList<>();
+        for (long i = 1; i < Math.pow(G, 0.5); i++) {
+        	if (G % i == 0) {
+        		long j = G / i;
+        		
+        		if ((i + j) % 2 == 0) {
+        			lst.add((i+j)/2);
+        		}
+        	}
+        }
+        
+        Collections.sort(lst);
+        if (lst.size() == 0) {
+        	System.out.print(-1);
+        } else {
+        	StringBuilder sb = new StringBuilder();
+        	for (long l : lst) {
+        		sb.append(l + "\n");
+        	}
+        	System.out.print(sb);
+        }
+        
+    }
+   
+};
