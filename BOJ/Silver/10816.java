@@ -78,3 +78,93 @@ public class Main {
     	System.out.print(sb);
     }    
 };
+
+// 240905
+/*
+ * 1. 완탐
+ * 
+ */
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N, M;
+	static int[] cards;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        N = Integer.parseInt(br.readLine());
+        
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        cards = new int[N];
+        for (int i=0; i<N; i++) {
+        	cards[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(cards);
+        
+        M = Integer.parseInt(br.readLine());
+        int target;
+        int start, end, mid;
+        StringBuilder sb = new StringBuilder();
+        st = new StringTokenizer(br.readLine());
+        for (int i=0; i<M; i++) {
+        	
+        	int left = -1;
+        	int right = -1;
+        	
+        	target = Integer.parseInt(st.nextToken());
+        	
+        	// 1. 왼쪽 끝 찾기
+        	start = 0;
+        	end = N-1;
+        	
+        	while (start <= end) {
+        		
+        		mid = (start + end) / 2;
+        		
+        		if (target == cards[mid]) {
+        			left = mid;
+        			end = mid - 1;
+        		} else if (target > cards[mid]) {
+        			start = mid + 1;
+        		} else {
+        			end = mid - 1;
+        		}
+        		
+        	}
+        	
+        	if (left == -1) {
+        		sb.append("0 ");
+        		continue;
+        	}
+        	
+        	// 2. 오른쪽 끝 찾기
+        	start = left;
+        	end = N-1;
+        	
+        	while (start <= end) {
+        		
+        		mid = (start + end) / 2;
+        		
+        		if (target == cards[mid]) {
+        			right = mid;
+        			start = mid + 1; // 오른쪽에 더 있는지 확인
+        		} else if (target > cards[mid]) {
+        			start = mid + 1;
+        		} else {
+        			end = mid - 1;
+        		}
+        	}
+        	
+        	sb.append(right - left + 1 + " ");
+        	
+        }
+        
+        System.out.print(sb);
+        
+    }
+   
+};
