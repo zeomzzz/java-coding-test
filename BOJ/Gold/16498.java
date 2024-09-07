@@ -91,3 +91,97 @@ public class Main {
     }
     
 };
+
+// 240908
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int A, B, C;
+	static int[] A_CARDS, B_CARDS, C_CARDS;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        A = Integer.parseInt(st.nextToken());
+        B = Integer.parseInt(st.nextToken());
+        C = Integer.parseInt(st.nextToken());
+        
+        st = new StringTokenizer(br.readLine());
+        A_CARDS = new int[A];
+        for (int i=0; i<A; i++) {
+        	A_CARDS[i] = Integer.parseInt(st.nextToken());
+        }
+        
+        st = new StringTokenizer(br.readLine());
+        B_CARDS = new int[B];
+        for (int i=0; i<B; i++) {
+        	B_CARDS[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(B_CARDS);
+        
+        C_CARDS = new int[C];
+        st = new StringTokenizer(br.readLine());
+        for (int i=0; i<C; i++) {
+        	C_CARDS[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(C_CARDS);
+        
+        int answer = Integer.MAX_VALUE;
+        
+        for (int a : A_CARDS) {
+        	
+        	// a와 가장 가까운 b 값을 구함
+        	int b = search(a, B_CARDS);
+        	
+        	// a와 가까운 c, b와 가까운 c를 구함
+        	int ac = search(a, C_CARDS);
+        	int bc = search(b, C_CARDS);
+        	
+        	int penalty = Math.min(calPenalty(a, b, ac), calPenalty(a, b, bc));
+        	answer = Math.min(penalty, answer);
+        	
+        }
+        
+        System.out.print(answer);
+        
+    }
+    
+    public static int search(int target, int[] cards) {
+    	
+    	int start = 0;
+    	int end = cards.length - 1;
+    	int mid = (start + end) / 2;
+    	int result = cards[mid];
+    	
+    	while (start <= end) {
+    		
+    		mid = (start + end) / 2;
+    		
+    		if (target < cards[mid]) {
+    			end = mid - 1;
+    		} else if (target > cards[mid]) {
+    			start = mid + 1;
+    		} else {
+    			return target;
+    		}
+    		
+    		// 더 penalty가 적은 것으로 갱신
+    		if (Math.abs(Math.max(target, cards[mid]) - Math.min(target, cards[mid]))
+    				< Math.abs(Math.max(target, result) - Math.min(target, result))) {
+    			result = cards[mid];
+    		}
+    		
+    	}
+    	
+    	return result;
+    	
+    }
+    
+    public static int calPenalty(int a, int b, int c) {
+    	return Math.abs(Math.max(Math.max(a, b), c) - Math.min(Math.min(a, b), c));
+    }
+   
+};
