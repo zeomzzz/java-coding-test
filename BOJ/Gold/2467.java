@@ -118,3 +118,62 @@ class Main {
     }
    
 };
+
+// 240909
+/*
+ * 1. 완탐
+ * 
+ */
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N;
+	static long[] liquids;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        N = Integer.parseInt(st.nextToken());
+        st = new StringTokenizer(br.readLine());
+        liquids = new long[N];
+        for (int i=0; i<N; i++) {
+        	liquids[i] = Long.parseLong(st.nextToken());
+        }
+        
+        Arrays.sort(liquids);
+        
+        int start = 0;
+        int end = N - 1;
+        long l1 = liquids[start];
+        long l2 = liquids[end];
+        long min = Math.abs(l1 + l2);
+        
+        while (start < end) {
+        	
+        	long tmp = liquids[start] + liquids[end];
+        	
+        	if (Math.abs(tmp) < min) {
+        		min = Math.abs(tmp);
+        		l1 = liquids[start];
+        		l2 = liquids[end];
+        	}
+        	
+        	if (tmp > 0) {
+        		end--;
+        	} else if (tmp < 0) {
+        		start++;
+        	} else {
+        		l1 = liquids[start];
+        		l2 = liquids[end];
+        		break;
+        	}
+        	
+        }
+        
+        System.out.print(l1 + " " + l2);
+    }
+    
+};
