@@ -84,3 +84,55 @@ public class Main {
     } 
     
 };
+
+// 240912
+/*
+ * 1. 완탐
+ * 
+ */
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N, M;
+	static int[] selected;
+	static boolean[] visited;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        
+        selected = new int[M];
+        visited = new boolean[N+1];
+        
+        recur(0);
+    }
+    
+    public static void recur(int cur) {
+    	
+    	if (cur == M) {
+    		StringBuilder sb = new StringBuilder();
+    		for (int select : selected) {
+    			sb.append(select + " ");
+    		}
+    		System.out.println(sb);
+    		return;
+    	}
+    	
+    	for (int i=1; i<=N; i++) {
+    		if (visited[i]) continue;
+    		
+    		selected[cur] = i;
+    		visited[i] = true;
+    		recur(cur+1);
+    		visited[i] = false;
+    	}
+    	
+    }
+    
+};
+
