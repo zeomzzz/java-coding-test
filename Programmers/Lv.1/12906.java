@@ -27,3 +27,29 @@ public class Solution {
         return answer;
     }
 }
+
+// 240916
+import java.util.*;
+
+public class Solution {
+    public int[] solution(int []arr) {
+        int l = arr.length;
+        
+        Stack<Integer> stack = new Stack<>();
+        for (int i=l-1; i>=0; i--) {
+            if (stack.empty()) {
+                stack.push(arr[i]);
+            } else if (stack.peek() != arr[i]) {
+                stack.push(arr[i]);
+            }
+        }
+        
+        int[] answer = new int[stack.size()];
+        int idx = 0;
+        while (!stack.empty()) {
+            answer[idx++] = stack.pop();
+        }
+        
+        return answer;
+    }
+}
