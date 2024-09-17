@@ -100,3 +100,54 @@ public class Main {
     }
     
 };
+
+// 240918
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N, M;
+	static int[] nums, selected;
+	static StringBuilder sb;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        sb = new StringBuilder();
+        
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        
+        st = new StringTokenizer(br.readLine());
+        nums = new int[N];
+        selected = new int[M];
+        for (int i=0; i<N; i++) {
+        	nums[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(nums);
+        
+        recur(0, 0);
+        
+        System.out.print(sb);
+        
+    }
+    
+    public static void recur(int cur, int start) {
+    	
+    	if (cur == M) {
+    		for (int select : selected) {
+    			sb.append(select + " ");
+    		}
+    		sb.append("\n");
+    		return;
+    	}
+    	
+    	for (int i=start; i<N; i++) {
+    		selected[cur] = nums[i];
+    		recur(cur+1, i+1);
+    	}
+    }
+    
+};
+
