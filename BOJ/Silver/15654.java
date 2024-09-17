@@ -112,3 +112,59 @@ public class Main {
     }
     
 };
+
+// 240917
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int N, M;
+	static int[] nums, selected;
+	static boolean[] visited;
+	static StringBuilder sb;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        sb = new StringBuilder();
+        
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        nums = new int[N];
+        selected = new int[M];
+        visited = new boolean[N];
+        
+        st = new StringTokenizer(br.readLine());
+        for (int i=0; i<N; i++) {
+        	nums[i] = Integer.parseInt(st.nextToken());
+        }
+        Arrays.sort(nums);
+        
+        recur(0);
+        
+        System.out.print(sb);
+        
+    }
+    
+    public static void recur(int cur) {
+    	
+    	if (cur == M) {
+    		for (int select : selected) {
+    			sb.append(select + " ");
+    		}
+    		sb.append("\n");
+    		return;
+    	}
+    	
+    	for (int i=0; i<N; i++) {
+    		if (!visited[i]) {
+    			visited[i] = true;
+    			selected[cur] = nums[i];
+    			recur(cur+1);
+    			visited[i] = false;
+    		}
+    	}
+    }
+    
+};
