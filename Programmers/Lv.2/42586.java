@@ -99,3 +99,35 @@ class Solution {
         return answer;
     }
 }
+
+// 240918
+import java.util.*;
+
+class Solution {
+    public int[] solution(int[] progresses, int[] speeds) {
+        
+        List<Integer> list = new LinkedList<>();
+        int startIdx = 0;
+        while (startIdx < progresses.length) {
+            for (int i=startIdx; i<progresses.length; i++) {
+                progresses[i] += speeds[i];
+            }
+            
+            if (progresses[startIdx] >= 100) {
+                int cnt = 0;
+                while (startIdx < progresses.length && progresses[startIdx] >= 100) {
+                    startIdx++;
+                    cnt++;
+                }
+                list.add(cnt);
+            }
+        }
+        
+        int[] answer = new int[list.size()];
+        for (int i=0; i<list.size(); i++) {
+            answer[i] = list.get(i);
+        }
+        
+        return answer;
+    }
+}
