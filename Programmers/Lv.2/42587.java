@@ -92,3 +92,37 @@ class Solution {
         return answer;
     }
 }
+
+// 240921
+import java.util.*;
+
+class Solution {
+    public int solution(int[] priorities, int location) {
+        int answer = 0;
+        
+        PriorityQueue<Integer> priorityQueue = new PriorityQueue<>(Collections.reverseOrder());
+        Queue<Integer> indexQueue = new LinkedList<>();
+        
+        for (int i=0; i<priorities.length; i++) {
+            priorityQueue.add(priorities[i]);
+            indexQueue.add(i);
+        }
+        
+        while (indexQueue.size() != 0) {
+            int idx = indexQueue.poll();
+            
+            if (priorities[idx] == priorityQueue.peek()) {
+                answer++;
+                priorityQueue.poll();
+                if (idx == location) {
+                    break;
+                }
+            } else {
+                indexQueue.add(idx);
+            }
+            
+        }
+        
+        return answer;
+    }
+}
