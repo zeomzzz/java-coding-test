@@ -168,3 +168,93 @@ public class Main {
     }
     
 };
+
+// 240922
+import java.util.*;
+import java.io.*;
+
+class Main {
+	
+	static int K;
+	static String[] signs;
+	static int[] selected;
+	static boolean[] visited;
+	static String min, max;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        K = Integer.parseInt(st.nextToken());
+        signs = new String[K];
+        selected = new int[K+1];
+        visited = new boolean[10];
+        min = "";
+        max = "";
+        
+        st = new StringTokenizer(br.readLine());
+        for (int i=0; i<K; i++) {
+        	signs[i] = st.nextToken();
+        }
+        
+        recur(0);
+        
+        System.out.println(max);
+        System.out.print(min);
+    }
+    
+    public static boolean check(int cur, int n) {
+    	if (signs[cur-1].equals(">")) {
+    		if (selected[cur-1] > n) {
+    			return true;
+    		}
+    	} else {
+    		if (selected[cur-1] < n) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    public static void recur(int cur) {
+    	
+    	if (cur == K+1) {
+    		StringBuilder sb = new StringBuilder();
+    		for (int select : selected) {
+    			sb.append(select);
+    		}
+    		if (min.equals("")) {
+    			min = sb.toString();
+    		} else {
+    			max = sb.toString();
+    		}
+    		return;
+    	}
+    	
+    	for (int i=0; i<10; i++) {
+    		if (!visited[i]) {
+    			if (cur == 0) {
+    				
+    				visited[i] = true;
+    				selected[cur] = i;
+    				
+    				recur(cur+1);
+    				
+    				visited[i] = false;
+    				
+    			} else {
+    				if (check(cur, i)) {
+    					
+    					visited[i] = true;
+    					selected[cur] = i;
+    					
+    					recur(cur+1);
+    					
+    					visited[i] = false;
+    				}
+    			}
+    		}
+    	}
+    }
+    
+};
