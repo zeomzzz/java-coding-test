@@ -105,3 +105,60 @@ public class Main {
 //    }
 
 };
+
+// 241006
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int N;
+	static int[][] houses;
+	static int[][] dp;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        
+        N = Integer.parseInt(st.nextToken());
+        houses = new int[N][3];
+        
+        for (int i=0; i<N; i++) {
+        	st = new StringTokenizer(br.readLine());
+        	houses[i][0] = Integer.parseInt(st.nextToken()); // 빨 
+        	houses[i][1] = Integer.parseInt(st.nextToken()); // 초
+        	houses[i][2] = Integer.parseInt(st.nextToken()); // 파
+        }
+        
+        dp = new int[N][3];
+        for (int i=0; i<N; i++) {
+        	Arrays.fill(dp[i], -1);
+        }
+        
+        System.out.println(Math.min(recur(0, 0), Math.min(recur(0, 1), recur(0, 2))));
+        
+    }
+    
+    public static int recur(int cur, int prev) {
+    	if (cur == N) {
+    		return 0;
+    	}
+    	
+    	if (dp[cur][prev] != -1) {
+    		return dp[cur][prev];
+    	}
+
+    	int total = Integer.MAX_VALUE;
+    	
+    	for (int i=0; i<3; i++) {
+	   		 if (i != prev) {
+	   			 total = Math.min(total, recur(cur+1, i) + houses[cur][i]);
+	   		 }
+    	}
+    	
+    	dp[cur][prev] = total;
+    	
+    	return dp[cur][prev];
+    }
+
+}
