@@ -49,3 +49,56 @@ public class Main {
 //    }
 
 };
+
+// 241007
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int N, K;
+	static int[][] items, dp;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+        
+        items = new int[N][2];
+        for (int i=0; i<N; i++) {
+        	st = new StringTokenizer(br.readLine());
+        	items[i][0] = Integer.parseInt(st.nextToken()); // 무게(W)
+        	items[i][1] = Integer.parseInt(st.nextToken()); // 가치(V)
+        }
+        
+        dp = new int[N][K+1];
+        for (int i=0; i<N; i++) {
+        	Arrays.fill(dp[i], -1);
+        }
+        
+        System.out.print(recur(0, 0));
+    }
+    
+    public static int recur(int cur, int totalWeight) { // cur까지 왔을 때 totalWeight라면 totalValue얼마인지
+    	
+    	if (totalWeight > K) {
+    		return -1000000000; // 엄청 큰 손해 
+    	}
+    	
+    	if (cur == N) {
+    		return 0;
+    	}
+    	
+    	if (dp[cur][totalWeight] != -1) {
+    		return dp[cur][totalWeight];
+    	}
+    	
+    	dp[cur][totalWeight] = Math.max(recur(cur+1, totalWeight+items[cur][0])+items[cur][1], recur(cur+1, totalWeight));
+    	
+    	return dp[cur][totalWeight];
+    	
+    }
+
+}
