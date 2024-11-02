@@ -24,3 +24,36 @@ class Solution {
         }
     }
 }
+
+// 241103
+import java.util.*;
+
+class Solution {
+    static int n, answer;
+    
+    public int solution(int k, int[][] dungeons) {
+        answer = -1;
+        n = dungeons.length;
+        
+        Arrays.sort(dungeons, (o1, o2) -> (o2[0] - o2[1]) - (o1[0] - o1[1]));
+        
+        backtracking(0, k, 0, dungeons);
+        
+        return answer;
+    }
+    
+    public static void backtracking(int cur, int p, int cnt, int[][] dungeons) {
+        
+        if (cur == n) {
+            answer = Math.max(answer, cnt);
+            return;
+        }
+        
+        if (p >= dungeons[cur][0]) { // 이번거 가능
+            backtracking (cur+1, p-dungeons[cur][1], cnt+1, dungeons);
+        }
+        
+        // 이번거 안가
+        backtracking(cur+1, p, cnt, dungeons);
+    }
+}
