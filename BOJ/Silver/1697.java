@@ -44,3 +44,55 @@ public class Main {
     }
     
 };
+
+// 241102
+import java.io.*;
+import java.util.*;
+
+public class Main {
+	
+	static int N, K;
+	static int[] visited;
+	
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
+        visited = new int[100001];
+        Arrays.fill(visited, -1);
+        
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(N);
+        visited[N] = 0;
+        
+        int cur = 0;
+        
+        while (!q.isEmpty()) {
+        	
+        	cur = q.poll();
+        	
+        	if (cur-1 >= 0 && visited[cur-1] == -1) {
+        		visited[cur-1] = visited[cur] + 1;
+        		q.offer(cur-1);
+        		if (cur-1 == K) break;
+        	}
+        	
+        	if (cur+1 <= 100000 && visited[cur+1] == -1) {
+        		visited[cur+1] = visited[cur] + 1;
+        		q.offer(cur+1);
+        		if (cur+1 == K) break;
+        	}
+        	
+        	if (cur * 2 <= 100000 && visited[cur*2] == -1) {
+        		visited[cur*2] = visited[cur] + 1;
+        		q.offer(cur*2);
+        		if (cur*2 == K) break;
+        	}
+        }
+        
+        System.out.print(visited[K]);
+    }
+    
+}
+
