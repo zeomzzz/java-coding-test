@@ -126,3 +126,45 @@ class Solution {
         return answer;
     }
 }
+
+// 241105
+import java.util.*;
+
+class Solution {
+    public int solution(int[] priorities, int location) {
+        int answer = 0;
+        int n = priorities.length;
+        
+        Queue<Node> q = new LinkedList<>();
+        for (int i=0; i<n; i++) {
+            q.offer(new Node(i, priorities[i]));
+        }
+        Arrays.sort(priorities);
+        
+        int idx = n-1;
+        while (!q.isEmpty()) {
+            Node cur = q.poll();
+            if (cur.priority == priorities[idx]) {
+                answer++;
+                idx--;
+                if (cur.idx == location) {
+                    break;
+                }
+            } else {
+                q.offer(cur);
+            }
+        }
+        
+        return answer;
+    }
+    
+    class Node {
+        int idx;
+        int priority;
+        
+        Node(int idx, int priority) {
+            this.idx = idx;
+            this.priority = priority;
+        }
+    }
+}
