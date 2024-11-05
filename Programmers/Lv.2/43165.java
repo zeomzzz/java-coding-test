@@ -88,3 +88,32 @@ class Solution {
         return answer;
     }
 }
+
+// 241105
+import java.util.*;
+
+class Solution {
+    
+    static int answer, l;
+    
+    public int solution(int[] numbers, int target) {
+        answer = 0;
+        l = numbers.length;
+        
+        backtracking(0, 0, numbers, target);
+        
+        return answer;
+    }
+    
+    static void backtracking(int idx, int sum, int[] numbers, int target) {
+        if (idx == l) {
+            if (sum == target) {
+                answer++;
+            }
+            return;
+        }
+        
+        backtracking(idx+1, sum+numbers[idx], numbers, target);
+        backtracking(idx+1, sum-numbers[idx], numbers, target);
+    }
+}
